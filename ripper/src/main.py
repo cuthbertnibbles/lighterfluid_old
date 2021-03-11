@@ -23,7 +23,10 @@ def rip():
   longtitude = request.args.get('lon')
   range = request.args.get('range')
 
-  #TODO: ping
+  print("tapi = " + tapi_token)
+
+  # Set Location
+#  tinder_api.set_location(tapi_token, latitude, longtitude)
 
   return tinder_api.get_recs(tapi_token)
 
