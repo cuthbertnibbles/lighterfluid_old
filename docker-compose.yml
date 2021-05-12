@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+
+  ripper:
+    build:
+      context: ./ripper
+
+  # Database Server
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 731b125128fa9fcc5b27f37817e5cc7ab79ce2fb
+
+# Database Management
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
