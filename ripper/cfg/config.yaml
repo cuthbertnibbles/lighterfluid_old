@@ -1,0 +1,6 @@
+username: postgres
+password: 731b125128fa9fcc5b27f37817e5cc7ab79ce2fb
+dbServer: 10.21.9.100
+dbName: dev
+xAuthToken: 0e25ab7b-8e18-4a26-bd80-983604c22581
+s3Server: 10.21.8.100

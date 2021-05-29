@@ -1,44 +1,21 @@
-# Borrow data from Tinder's API and push it into SQL
-# Depends:
-from flask import Flask, json, request
-import tinder_api
 
-# Stuff copied from flask tutorial
-companies = [{"id": 1, "name": "Company One"}, {"id": 2, "name": "Company Two"}]
-api = Flask(__name__)
-@api.route('/companies', methods=['GET'])
-def get_companies():
-  return json.dumps(companies)
-
-# Basic informative pag
-@api.route('/', methods=['GET'])
-def index():
-  return "Welcome to the lighterfluid ripper!"
-
-# Main profile to pull from
-@api.route('/rip')
-def rip():
-  tapi_token = request.args.get('tapi_token')
-  latitude = request.args.get('lat')
-  longtitude = request.args.get('lon')
-  range = request.args.get('range')
-
-  print("tapi = " + tapi_token)
-
-  # Set Location
-#  tinder_api.set_location(tapi_token, latitude, longtitude)
-
-  return tinder_api.get_recs(tapi_token)
-
-
-
+import psycopg2
+import yaml
 
 # Get database credentials from file because "yOu'Re nOt sUpPOsEd To pUT TheM oN tHe InTErnET"
-credFile = r'./userpass.json'
-with open(credFile) as json_file:
-    userPassJson = json.loads(json_file.read())
-sql_username = userPassJson['sql_username']
-sql_password = userPassJson['sql_password']
+#credFile = r'C:\Users\benjamin.pieplow\code\LighterFluid\data\profiles'
+confFile = r'./cfg/config.yaml'
+with open(confFile) as yaml_file:       # NOTE: For Windows, add this after credfile: ", encoding='utf-16'"
+    config = yaml.safe_load(yaml_file.read())
+sql_username = config['username']
+sql_password = config['password']
+dbServer = config['dbServer']
+
+# Create a database connection to use
+#dbinfo = "dbname='postgres' user='" + username + "' host='10.21.32.26' password='" + password + "'"
+dbinfo = "dbname='" + dbName + "' user='" + username + "' host='" + dbServer + "' password='" + password + "'"
+print(dbinfo)
+conn = psycopg2.connect(dbinfo)
 
 
 if __name__ == '__main__':

@@ -1,0 +1,11 @@
+psycopg2
+pyyaml
+numpy
+
+face_recognition
+
+minio
+
+gunicorn
+flask
+requests
